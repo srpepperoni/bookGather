@@ -15,4 +15,4 @@ Recreate book from HAR file
 * **identification** = f4FIAgAAQBAJ
 * **bookName** = marugoto
 * **pages** = 199
-
+* **dowloadBatch** = 5
