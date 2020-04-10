@@ -52,15 +52,15 @@ public class BookServiceImpl implements BookService {
 	}
 	
 	@Override
-	public void saveImages(List<String> urls, String destinationPath, int pages, int downloadBatch) {
+	public void saveImages(List<String> urls, String destinationPath, int downloadBatch) {
 		
 		try {
 
 			ExecutorService es = Executors.newCachedThreadPool();
-			int hilos = Math.floorDiv(pages, downloadBatch) + 1;
+			int hilos = Math.floorDiv(urls.size(), downloadBatch) + 1;
 
 			for (int j = 0; j < hilos; j++) {
-				DowloadImage task = new DowloadImage(urls, destinationPath, j, pages, downloadBatch);
+				DowloadImage task = new DowloadImage(urls, destinationPath, j, urls.size(), downloadBatch);
 				es.execute(task);
 			}
 
