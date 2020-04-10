@@ -32,20 +32,18 @@ public class BookController {
 	/**
 	 * @param origin         It is where JSON file (HAR file) is located
 	 * @param destiny        It is where images and pdf file will be created
-	 * @param identification It is the identification of request we wanna extract
 	 * @param bookName       Name file for pdf
-	 * @param dowloadBatch   Number of pages to dowload for batch
 	 */
 	@PostMapping(path = { "/generateFile" })
 	public Map<String, Object> generateFileFromHAR(@RequestParam String origin, @RequestParam String destiny,
-			@RequestParam String identification, @RequestParam String bookName, @RequestParam int dowloadBatch) {
+			@RequestParam String bookName) {
 		
 		log.info("Entering generateFileFromHAR method");
 		List<String> urls = new ArrayList<String>();
 
 		JSONArray entries = bookService.createEntries(origin);
-		bookService.getRequestInfo(identification, entries, urls);
-		bookService.saveImages(urls, destiny, dowloadBatch);
+		bookService.getRequestInfo(entries, urls);
+		bookService.saveImages(urls, destiny);
 		bookService.createPDF(destiny, urls.size(), bookName);
 
 		log.info("Exiting generateFileFromHAR method");

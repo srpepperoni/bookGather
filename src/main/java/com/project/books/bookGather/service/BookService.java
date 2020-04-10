@@ -8,9 +8,9 @@ public interface BookService {
 	
 	public JSONArray createEntries(String path);
 	
-	public void getRequestInfo(String id, JSONArray entries, List<String> urls);
+	public void getRequestInfo(JSONArray entries, List<String> urls);
 	
-	public void saveImages(List<String> urls, String destinationPath, int downloadBatch);
+	public void saveImages(List<String> urls, String destinationPath);
 	
 	public void createPDF(String imagesPath, int elements, String bookName);
 

@@ -47,15 +47,16 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public void getRequestInfo(String id, JSONArray entries, List<String> urls) {
+	public void getRequestInfo(JSONArray entries, List<String> urls) {
+		String id = bookUtils.getIdentification(entries);
 		entries.forEach(emp -> bookUtils.packUrls((JSONObject) emp, id, urls));
 	}
 	
 	@Override
-	public void saveImages(List<String> urls, String destinationPath, int downloadBatch) {
+	public void saveImages(List<String> urls, String destinationPath) {
 		
 		try {
-
+			int downloadBatch = Math.round(urls.size() * ((float)25/1000));
 			ExecutorService es = Executors.newCachedThreadPool();
 			int hilos = Math.floorDiv(urls.size(), downloadBatch) + 1;
 

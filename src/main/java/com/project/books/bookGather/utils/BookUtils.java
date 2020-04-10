@@ -67,5 +67,18 @@ public class BookUtils {
 			urls.add(url);
 		}
 	}
+	
+	public String getIdentification(JSONArray entries) {
+		
+		for (Object entry : entries) {
+			String verb = (String) ((JSONObject) ((JSONObject) entry).get("request")).get("method");
+			String url = (String) ((JSONObject) ((JSONObject) entry).get("request")).get("url");
+			if ("GET".equals(verb) && url.contains(Constants.endpoint_part_one)) {
+				return url.split("id=")[1].split("&")[0];
+			}
+		}
+		
+		return null;
+	}
 
 }
